@@ -35,9 +35,14 @@ def generate_text(content: str) -> str :
     
     url = f"{BASE_ROUTER_URL}/v1/chat/completions"
 
+    # todo: remover essa logica de desenvolvimento
+    useMock = True # para testar
+    
     try:
-        result = safe_request(url, HEADERS, payload) 
-        # result = {'id': '486f8d7d521d485fab5549c7c9a8db20', 'object': 'chat.completion', 'created': 1773969828, 'model': 'meta-llama/llama-3-8b-instruct', 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': 'Entendemos seu currículo e experiência profissional. Ele foi encaminhado ao nosso RH para análise.'}, 'finish_reason': 'stop'}], 'usage': {'prompt_tokens': 785, 'completion_tokens': 26, 'total_tokens': 811, 'prompt_tokens_details': None, 'completion_tokens_details': None}, 'system_fingerprint': ''}
+        if useMock:
+            result = {'id': '486f8d7d521d485fab5549c7c9a8db20', 'object': 'chat.completion', 'created': 1773969828, 'model': 'meta-llama/llama-3-8b-instruct', 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': 'Obrigada pelo contato, tenha um otimo dia.'}, 'finish_reason': 'stop'}], 'usage': {'prompt_tokens': 785, 'completion_tokens': 26, 'total_tokens': 811, 'prompt_tokens_details': None, 'completion_tokens_details': None}, 'system_fingerprint': ''}
+        else:
+            result = safe_request(url, HEADERS, payload) 
         
         if result and "choices" in result:
             return result["choices"][0]["message"]["content"].strip()
