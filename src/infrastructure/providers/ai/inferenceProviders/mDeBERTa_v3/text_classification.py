@@ -1,6 +1,6 @@
 import os
 from pydantic import BaseModel
-from app.infrastructure.providers.request.safe_request import safe_request
+from src.infrastructure.providers.request.safe_request import safe_request
 from dotenv import load_dotenv
 
 load_dotenv()

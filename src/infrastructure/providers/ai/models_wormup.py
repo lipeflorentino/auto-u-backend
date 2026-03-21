@@ -1,6 +1,6 @@
 import time
-from app.infrastructure.adapter.ai_client import CLASSIFIER_URL, GENERATOR_URL
-from app.infrastructure.providers.request.safe_request import safe_request
+from src.infrastructure.adapter.ai_client import CLASSIFIER_URL, GENERATOR_URL
+from src.infrastructure.providers.request.safe_request import safe_request
 
 def wakeup_models():
     print("--- Iniciando Warm-up dos Modelos ---")

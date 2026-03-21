@@ -1,5 +1,5 @@
-from app.infrastructure.providers.ai.inferenceProviders.metaLlama.text_generator import generate_text
-from app.infrastructure.providers.ai.inferenceProviders.mDeBERTa_v3.text_classification import classify_text
+from src.infrastructure.providers.ai.inferenceProviders.metaLlama.text_generator import generate_text
+from src.infrastructure.providers.ai.inferenceProviders.mDeBERTa_v3.text_classification import classify_text
 from typing import Tuple
 
 def classify_with_ai(content: str) -> Tuple[str, float]:

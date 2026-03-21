@@ -1,8 +1,8 @@
 from fastapi import APIRouter, UploadFile, File
 from pydantic import BaseModel
 
-from app.application.useCase.classify_email import classify_email
-from app.infrastructure.providers.fileReaders.PyMuPDF.file_reader import extract_text_from_pdf
+from src.application.useCase.classify_email import classify_email
+from src.infrastructure.providers.fileReaders.PyMuPDF.file_reader import extract_text_from_pdf
 
 router = APIRouter()
 

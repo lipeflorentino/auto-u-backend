@@ -1,0 +1,16 @@
+name: Deploy Application
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-gcp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Auth GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Build and Deploy
+        run: make deploy-gcp
