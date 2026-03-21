@@ -45,10 +45,9 @@ run-docker: ## Executa o container localmente para validação
 
 deploy-gcp: build-docker ## Build e Deploy para Google Cloud Run
 	@echo "🚀 Iniciando Deploy no Google Cloud Run..."
-	docker tag $(IMAGE_NAME):latest gcr.io/$(GCP_PROJECT_ID)/$(IMAGE_NAME)
-	docker push gcr.io/$(GCP_PROJECT_ID)/$(IMAGE_NAME)
-	gcloud run deploy $(IMAGE_NAME) \
-		--image gcr.io/$(GCP_PROJECT_ID)/$(IMAGE_NAME) \
+	docker tag $(IMAGE_NAME):latest $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest
+	docker push $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest
+	gcloud run deploy $(service_name) --image $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest \
 		--platform managed \
 		--region $(GCP_REGION) \
 		--allow-unauthenticated
@@ -81,3 +80,6 @@ db-shell: ## Acessa o terminal do banco de dados
 
 test: ## Executa os testes unitários com cobertura
 	export PYTHONPATH=. && pytest src/tests -v
+
+get-service-url: # Para capturar a URL do serviço via make
+	@cd infra/gcp && terraform output -raw service_url

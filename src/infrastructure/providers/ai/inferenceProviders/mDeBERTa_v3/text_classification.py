@@ -10,7 +10,7 @@ class Classification(BaseModel):
     score: float
     
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
-BASE_ROUTER_URL = os.getenv("BASE_ROUTER_URL")
+BASE_ROUTER_URL = os.getenv("BASE_ROUTER_URL", "https://router.huggingface.co")
 HEADERS = {"Authorization": f"Bearer {HUGGINGFACE_TOKEN}"}
     
 def classify_text(content: str) -> list[Classification]:

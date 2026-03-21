@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
-BASE_ROUTER_URL = os.getenv("BASE_ROUTER_URL")
+BASE_ROUTER_URL = os.getenv("BASE_ROUTER_URL", "https://router.huggingface.co")
 HEADERS = {"Authorization": f"Bearer {HUGGINGFACE_TOKEN}"}
 
 def generate_text(content: str) -> str :

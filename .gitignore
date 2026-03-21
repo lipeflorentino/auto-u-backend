@@ -5,3 +5,4 @@ tarefas.md
 .env
 .vscode
 utils.txt
+.pytest_cache

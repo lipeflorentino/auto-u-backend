@@ -38,21 +38,23 @@ O projeto foi construído seguindo os princípios da **Clean Architecture**, gar
 | **spaCy (PT-BR)** | Pré-processamento | Limpeza de ruído e lematização para reduzir o custo de tokens na API. |
 | **Uvicorn** | Servidor ASGI | Confiabilidade e baixo overhead para containers. |
 | **Makefile** | Automação | Abstração de comandos complexos de build, teste e deploy. |
+| **Terraform** | IaC (Infra as Code) | Provisionamento determinístico e transparente dos recursos de nuvem. |
 
 ---
 
-## ☁️ Infraestrutura & Deploy (Cloud Agnostic)
+### ☁️ Infraestrutura & Provisionamento
 
-Implementei uma infraestrutura baseada em containers para garantir que a aplicação seja **Cloud Agnostic**.
+Utilizei **Terraform** para gerenciar a infraestrutura no **Google Cloud Platform (GCP)**, garantindo que o ambiente seja replicável e auditável.
+* **Artifact Registry:** Repositório privado para versionamento de imagens Docker.
+* **Cloud Run:** Ambiente serverless que escala conforme a demanda, otimizando custos.
 
 ### Docker Multi-Stage Build
+
 Desenvolvi um `Dockerfile` otimizado em dois estágios:
 1.  **Builder:** Compila as dependências e faz o download dos modelos pesados do spaCy.
 2.  **Runner:** Uma imagem final leve (slim), contendo apenas o essencial para a execução, o que reduz drasticamente o tempo de inicialização (Cold Start) em ambientes serverless.
 
-
-
-### Estratégia de Cloud
+### Estratégia de Cloud (Agnostica)
 A aplicação está preparada para rodar em:
 * **Google Cloud Run:** Ideal pela simplicidade e escalabilidade baseada em requisições.
 * **AWS App Runner:** Para uma integração nativa com o ecossistema AWS e ECR.
@@ -68,16 +70,23 @@ Configurei pipelines automatizados que realizam:
 
 "As credenciais de IA devem ser configuradas no arquivo .env seguindo o modelo disponível em .env.example".
 
-**Pré-requisitos:** Docker instalado.
+**Pré-requisitos:** Docker e Terraform instalados.
 
 1.  Clone o repositório.
 2.  Crie um arquivo `.env` com seu `HUGGINGFACE_TOKEN`.
-3.  Execute o comando principal:
+3.  **Provisionar Infra:**
     ```bash
-    make build-local
-    make test-local
+    cd infra/gcp && terraform init && terraform apply
     ```
-4.  A API estará disponível em `http://localhost:8000`.
+4.  **Execução Local:**
+    ```bash
+    make build-docker
+    make up
+    ```
+5.  **Testes:**
+    ```bash
+    make test
+    ```
 
 ---
 *Desenvolvido por Filipe F. Lima - Fullstack Developer*
