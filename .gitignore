@@ -6,3 +6,7 @@ tarefas.md
 .vscode
 utils.txt
 .pytest_cache
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
