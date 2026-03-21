@@ -15,6 +15,8 @@ GCP_PROJECT_ID ?= auto-u-project
 GCP_REGION ?= southamerica-east1
 AWS_ACCOUNT_ID ?= 000000000000
 AWS_REGION ?= us-east-1
+repository_id  ?= auto-u-repo
+service_name   ?= auto-u-backend
 
 .PHONY: help install-local test-local build-docker run-docker deploy-gcp deploy-aws clean
 
