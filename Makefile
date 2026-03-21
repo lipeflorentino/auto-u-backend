@@ -47,6 +47,7 @@ run-docker: ## Executa o container localmente para validação
 
 deploy-gcp: build-docker ## Build e Deploy para Google Cloud Run
 	@echo "🚀 Iniciando Deploy no Google Cloud Run..."
+	gcloud auth configure-docker $(GCP_REGION)-docker.pkg.dev --quiet
 	docker tag $(IMAGE_NAME):latest $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest
 	docker push $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest
 	gcloud run deploy $(service_name) --image $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest \
