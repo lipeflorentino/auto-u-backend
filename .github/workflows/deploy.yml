@@ -1,8 +1,8 @@
-name: Continuous Deployment - Multi-Cloud
+name: Deploy Pipeline - Multi-Cloud
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   deploy-gcp:
