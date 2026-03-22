@@ -33,14 +33,14 @@ def classify_text(content: str) -> list[Classification]:
     }
     
     try:
-        if settings.STAGE is "development":
-            print("use mock!")
-            result = [
-                {'label': 'SUPORTE TECNICO', 'score': 0.9674391388893127},
-                {'label': 'AGRADECIMENTO', 'score': 0.2325608015060425}
-            ]
-        else:
-            result = safe_request(url, HEADERS, payload)
+        # if settings.STAGE is "development":
+        #     print("use mock!")
+        #     result = [
+        #         {'label': 'SUPORTE TECNICO', 'score': 0.9674391388893127},
+        #         {'label': 'AGRADECIMENTO', 'score': 0.2325608015060425}
+        #     ]
+        # else:
+        result = safe_request(url, HEADERS, payload)
         
         if result is None or not isinstance(result, list):
             print("⚠️ Erro na API ou Timeout. Retornando classificação padrão.")

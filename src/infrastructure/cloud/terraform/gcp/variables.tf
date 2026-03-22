@@ -9,6 +9,12 @@ variable "region" {
   default     = "southamerica-east1"
 }
 
+variable "stage" {
+  description = "Stage para o deploy"
+  type        = string
+  default     = "production"
+}
+
 variable "service_name" {
   description = "Nome do serviço no Cloud Run"
   type        = string
