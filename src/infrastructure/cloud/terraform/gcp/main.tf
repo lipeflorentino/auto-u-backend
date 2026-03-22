@@ -4,6 +4,22 @@ resource "google_artifact_registry_repository" "backend_repo" {
   repository_id = var.repository_id
   description   = "Repositorio Docker para o Auto-U Backend"
   format        = "DOCKER"
+
+  cleanup_policies {
+    id     = "delete-old-images"
+    action = "DELETE"
+    condition {
+      older_than = "2592000s"
+    }
+  }
+
+  cleanup_policies {
+    id     = "keep-latest-versions"
+    action = "KEEP"
+    most_recent_versions {
+      keep_count = 3
+    }
+  }
 }
 
 # 2. Serviço Cloud Run
@@ -13,15 +29,20 @@ resource "google_cloud_run_v2_service" "backend_service" {
   ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
+    scaling {
+      min_instance_count = 0
+      max_instance_count = 3
+    }
     containers {
       # Imagem temporária (será atualizada pelo GitHub Actions)
       image = "us-docker.pkg.dev/cloudrun/container/hello" 
       
       resources {
         limits = {
-          cpu    = "1"
-          memory = "512Mi"
+          cpu    = "2"
+          memory = "2Gi"
         }
+        cpu_idle = true
       }
       
       env {
