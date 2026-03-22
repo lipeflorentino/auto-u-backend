@@ -20,6 +20,8 @@ Para a sugestão de resposta, utilizei o **Llama-3-8B** via interface de *Chat C
 
 ## 🏗️ Arquitetura do Sistema
 
+![Arquitetura do sistema](./docs/clean_arch_diagram.png)
+
 O projeto foi construído seguindo os princípios da **Clean Architecture**, garantindo que a lógica de negócio seja independente de IO, Banco de Dados ou Provedores de Nuvem.
 
 * **Domain:** Contém as entidades e as interfaces (contracts) que definem o comportamento do sistema.
