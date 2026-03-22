@@ -1,15 +1,10 @@
-import os
 from src.infrastructure.providers.request.safe_request import safe_request
-from dotenv import load_dotenv
+from src.infrastructure.env_config import settings
 
-load_dotenv()
-
-HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
-BASE_ROUTER_URL = os.getenv("BASE_ROUTER_URL", "https://router.huggingface.co")
-HEADERS = {"Authorization": f"Bearer {HUGGINGFACE_TOKEN}"}
+HEADERS = {"Authorization": f"Bearer {settings.HUGGINGFACE_TOKEN}"}
 
 def generate_text(content: str) -> str :
-    if not HUGGINGFACE_TOKEN:
+    if not settings.HUGGINGFACE_TOKEN:
         print("❌ Erro: HUGGINGFACE_TOKEN não configurado no arquivo .env")
         return "Sua solicitação foi recebida e encaminhada ao setor responsável. Retornaremos em breve."
     
@@ -33,13 +28,11 @@ def generate_text(content: str) -> str :
         "temperature": 0.3 # resposta mais assertiva e menos criativa
     }
     
-    url = f"{BASE_ROUTER_URL}/v1/chat/completions"
-
-    # todo: remover essa logica de desenvolvimento
-    useMock = True # para testar
+    url = f"{settings.BASE_ROUTER_URL}/v1/chat/completions"
     
     try:
-        if useMock:
+        if settings.STAGE is "development":
+            print("use mock!")
             result = {'id': '486f8d7d521d485fab5549c7c9a8db20', 'object': 'chat.completion', 'created': 1773969828, 'model': 'meta-llama/llama-3-8b-instruct', 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': 'Obrigada pelo contato, tenha um otimo dia.'}, 'finish_reason': 'stop'}], 'usage': {'prompt_tokens': 785, 'completion_tokens': 26, 'total_tokens': 811, 'prompt_tokens_details': None, 'completion_tokens_details': None}, 'system_fingerprint': ''}
         else:
             result = safe_request(url, HEADERS, payload) 

@@ -49,6 +49,16 @@ resource "google_cloud_run_v2_service" "backend_service" {
         name  = "CLOUD_PROVIDER"
         value = "gcp"
       }
+
+      env {
+        name  = "HUGGINGFACE_TOKEN"
+        value = var.huggingface_token 
+      }
+
+      env {
+        name  = "STAGE"
+        value = "production"
+      }
     }
   }
   

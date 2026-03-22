@@ -23,4 +23,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         
       - name: Build and Deploy GCP
-        run: make deploy-gcp GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          make deploy-gcp \
+            GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }} \
+            HUGGINGFACE_TOKEN=${{ secrets.HUGGINGFACE_TOKEN }}

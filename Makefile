@@ -52,6 +52,7 @@ deploy-gcp: build-docker ## Build e Deploy para Google Cloud Run
 	docker push $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest
 	gcloud run deploy $(service_name) --image $(GCP_REGION)-docker.pkg.dev/$(GCP_PROJECT_ID)/$(repository_id)/$(IMAGE_NAME):latest \
 		--platform managed \
+		--set-env-vars="HUGGINGFACE_TOKEN=$(HUGGINGFACE_TOKEN)" \
 		--region $(GCP_REGION) \
 		--allow-unauthenticated
 

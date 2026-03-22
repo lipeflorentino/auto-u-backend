@@ -20,3 +20,9 @@ variable "repository_id" {
   type        = string
   default     = "auto-u-repo"
 }
+
+variable "huggingface_token" {
+  description = "Token de autenticação do Hugging Face"
+  type        = string
+  sensitive   = true
+}
