@@ -89,4 +89,29 @@ Configurei pipelines automatizados que realizam:
     ```
 
 ---
+
+## 🌐 API Online
+
+A aplicação está disponível publicamente para consumo. 
+
+> **Nota:** Por se tratar de uma infraestrutura *serverless* no Google Cloud Run, as primeiras requisições podem apresentar uma latência maior (**Cold Start**) enquanto o container é inicializado.
+
+### Endpoints Principais
+
+| Nome | Método | URL |
+| :--- | :--- | :--- |
+| **ClassifyEmail** | `POST` | `https://auto-u-backend-180653172521.southamerica-east1.run.app/classify` |
+| **ExtractPDF** | `POST` | `https://auto-u-backend-180653172521.southamerica-east1.run.app/extract-pdf` |
+
+---
+
+## 📖 Documentação Interativa (Swagger)
+
+O backend utiliza as capacidades nativas do **FastAPI** para expor uma documentação completa e interativa dos recursos disponíveis. Nela, é possível visualizar os esquemas de dados (DTOs) validados via **Pydantic** e realizar testes diretamente pelo navegador.
+
+* **URL da Documentação:** [https://auto-u-backend-180653172521.southamerica-east1.run.app/docs](https://auto-u-backend-180653172521.southamerica-east1.run.app/docs)
+
+---
+
+---
 *Desenvolvido por Filipe F. Lima - Fullstack Developer*
