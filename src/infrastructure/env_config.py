@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     HUGGINGFACE_TOKEN: str = os.getenv("HUGGINGFACE_TOKEN", "")
     CLOUD_PROVIDER: str = os.getenv("CLOUD_PROVIDER", "LOCAL") 
     STAGE: str = os.getenv("STAGE", "development")
-    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:5173")
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "https://auto-u-frontend-smoky.vercel.app")
     BASE_ROUTER_URL: str = os.getenv("BASE_ROUTER_URL", "https://router.huggingface.co")
     HOST: str = os.getenv("HOST", "0.0.0.0")
 
