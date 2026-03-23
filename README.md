@@ -1,15 +1,16 @@
-# 🚀 Auto-U Backend: Inteligência Artificial para Triagem de E-mails
+# Auto-U Backend: Inteligência Artificial para Triagem de E-mails
 
-Este é o motor de processamento do **Auto-U**, uma solução desenvolvida para automatizar a classificação e resposta de e-mails em instituições financeiras. O foco principal é separar comunicações **Produtivas** (que exigem ação humana ou sistêmica) de **Improdutivas** (saudações, spans, agradecimentos), utilizando modelos de Deep Learning de última geração.
+Uma solução desenvolvida para automatizar a classificação e resposta de e-mails em instituições financeiras. O foco principal é separar comunicações **Produtivas** (que exigem ação humana ou sistêmica) de **Improdutivas** (saudações, spans, agradecimentos), utilizando modelos de IA avançados.
 
 ## 🧠 Decisões Técnicas & Inteligência Artificial
 
 A escolha dos modelos de IA foi pautada pelo equilíbrio entre precisão semântica em Português e eficiência computacional.
 
-### 1. Classificação: mDeBERTa-v3-base
-Para a tarefa de *Zero-Shot Classification*, optei pelo **mDeBERTa-v3** em detrimento de modelos tradicionais como o BERT ou BART.
-* **Por que Português?** O mDeBERTa (Multilingual Decoding-enhanced BERT with Disentangled Attention) utiliza um treinamento eletra-style que apresenta uma compreensão de nuances gramaticais e gírias em PT-BR muito superior, resultando em scores de confiança mais estáveis.
-* **Desempenho:** Ele lida melhor com textos curtos e ruidosos, típicos de corpos de e-mail, identificando a intenção real por trás da mensagem.
+### 1. Classificação: deberta-v3-large-zeroshot-v2.0
+O modelo **MoritzLaurer/deberta-v3-large-zeroshot-v2.0** é um classificador de última geração projetado para a tarefa de NLI (Natural Language Inference), otimizado especificamente para classificação de texto sem treinamento prévio **(Zero-Shot)**.
+* **Atenção Desmembrada:** Ao contrário do BERT, ele trata o conteúdo e a posição relativa das palavras em vetores separados, o que permite uma compreensão muito mais rica da sintaxe e do contexto em frases complexas.
+* **Electra-style Pre-training:** A versão v3 utiliza uma técnica de treinamento onde o modelo precisa detectar tokens substituídos, tornando-o muito mais eficiente em extrair significado de sequências curtas de texto, como e-mails.
+* **Multilíngue e Robusto:** Embora o nome indique "large", esta versão v2.0 foi refinada com datasets massivos de NLI, o que o torna excelente para entender português, mesmo tendo sido treinado majoritariamente em inglês.
 
 ### 2. Geração: Meta-Llama-3-8B-Instruct
 Para a sugestão de resposta, utilizei o **Llama-3-8B** via interface de *Chat Completions*.
@@ -22,7 +23,7 @@ Para a sugestão de resposta, utilizei o **Llama-3-8B** via interface de *Chat C
 
 ![Arquitetura do sistema](./docs/clean_arch_diagram.png)
 
-O projeto foi construído seguindo os princípios da **Clean Architecture**, garantindo que a lógica de negócio seja independente de IO, Banco de Dados ou Provedores de Nuvem.
+O projeto foi construído seguindo os princípios da **Clean Architecture**, garantindo que a lógica de negócio seja independente de ferramentas e provedores externos.
 
 * **Domain:** Contém as entidades e as interfaces (contracts) que definem o comportamento do sistema.
 * **Application:** Implementa os casos de uso (Use Cases), orquestrando o fluxo entre a IA e as regras de negócio.
@@ -35,12 +36,12 @@ O projeto foi construído seguindo os princípios da **Clean Architecture**, gar
 
 | Tecnologia | Finalidade | Motivo |
 | :--- | :--- | :--- |
-| **Python 3.10** | Linguagem Core | Ecossistema maduro para IA e Processamento de Dados. |
-| **FastAPI** | Framework Web | Alta performance (ASGI) e documentação automática com Swagger. |
+| **Python 3.12** | Linguagem Core | Ecossistema maduro para IA e Processamento de Dados. |
+| **FastAPI** | Framework Web | Alta performance e documentação automática com Swagger. |
 | **spaCy (PT-BR)** | Pré-processamento | Limpeza de ruído e lematização para reduzir o custo de tokens na API. |
-| **Uvicorn** | Servidor ASGI | Confiabilidade e baixo overhead para containers. |
+| **Uvicorn** | Servidor | Confiabilidade e baixo overhead para containers. |
 | **Makefile** | Automação | Abstração de comandos complexos de build, teste e deploy. |
-| **Terraform** | IaC (Infra as Code) | Provisionamento determinístico e transparente dos recursos de nuvem. |
+| **Terraform** | IaC (Infra as Code) | Provisionamento dos recursos de nuvem. |
 
 ---
 
