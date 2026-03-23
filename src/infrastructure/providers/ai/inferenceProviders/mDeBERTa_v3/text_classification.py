@@ -16,11 +16,11 @@ def classify_text(content: str) -> list[Classification]:
     url = f"{settings.BASE_ROUTER_URL}/hf-inference/models/MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
     
     candidate_labels = [
-        "SUPORTE TECNICO OU DIFICULDADES COM APLICATIVO", 
-        "PROCESSO FINANCEIRO", 
-        "COMERCIAL, PARCERIA OU CURRICULO", 
-        "SPAM OU IRRELEVANTE",
-        "SAUDAÇÕES, AGRADECIMENTOS OU DESEJOS DE BOAS FESTAS"
+        "suporte tecnico", 
+        "processo financeiro", 
+        "agradecimento", 
+        "spam",
+        "saudação"
     ]
     
     payload = {

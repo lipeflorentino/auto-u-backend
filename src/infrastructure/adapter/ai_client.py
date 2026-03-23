@@ -9,12 +9,11 @@ def classify_with_ai(content: str) -> Tuple[str, float]:
         return "PRODUTIVO", 0.0
         
     mappings = {
-         "SUPORTE TECNICO OU DIFICULDADES COM APLICATIVO": "PRODUTIVO", 
-        "PROCESSO FINANCEIRO": "PRODUTIVO", 
-        "COMERCIAL, PARCERIA OU CURRICULO": "PRODUTIVO", 
-        "SPAM OU IRRELEVANTE": "IMPRODUTIVO",
-        "IMPRODUTIVO": "IMPRODUTIVO",
-        "SAUDAÇÕES, AGRADECIMENTOS OU DESEJOS DE BOAS FESTAS": "IMPRODUTIVO"
+        "suporte tecnico": "PRODUTIVO", 
+        "processo financeiro": "PRODUTIVO", 
+        "agradecimento": "IMPRODUTIVO", 
+        "spam": "IMPRODUTIVO",
+        "saudação": "IMPRODUTIVO"
     }
     
     category_scores = {"PRODUTIVO": 0.0, "IMPRODUTIVO": 0.0}
