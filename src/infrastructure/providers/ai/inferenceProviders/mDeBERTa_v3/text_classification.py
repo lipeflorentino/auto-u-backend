@@ -13,34 +13,24 @@ def classify_text(content: str) -> list[Classification]:
         print("❌ Erro: HUGGINGFACE_TOKEN não configurado no arquivo .env")
         return [Classification(label="PRODUTIVO", score=0.0)]
     
-    url = f"{settings.BASE_ROUTER_URL}/hf-inference/models/MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+    url = f"{settings.BASE_ROUTER_URL}/hf-inference/models/MoritzLaurer/deberta-v3-large-zeroshot-v2.0"
     
     candidate_labels = [
-        "suporte tecnico", 
-        "processo financeiro", 
-        "agradecimento", 
-        "spam",
-        "saudação"
+        "um email produtivo que envolve solicitação, problema ou ação relacionada a serviços financeiros",
+        "um email improdutivo como agradecimento, saudação, elogio ou mensagem irrelevante"
     ]
     
     payload = {
         "inputs": content,
         "parameters": {
             "candidate_labels": candidate_labels,
-            "hypothesis_template": "The main purpose of this email is {}.", # instrucao implicita para focar no contexto
+            "hypothesis_template": "Este email deve ser classificado como {}.", 
             "multi_label": False
         },
         "options": {"wait_for_model": True}
     }
     
     try:
-        # if settings.STAGE is "development":
-        #     print("use mock!")
-        #     result = [
-        #         {'label': 'SUPORTE TECNICO', 'score': 0.9674391388893127},
-        #         {'label': 'AGRADECIMENTO', 'score': 0.2325608015060425}
-        #     ]
-        # else:
         result = safe_request(url, HEADERS, payload)
         
         if result is None or not isinstance(result, list):
