@@ -34,4 +34,10 @@ def generate_response_with_ai(content: str, category: str) -> str:
 
     response = generate_text(content)
     
+    if not response:
+        return (
+            "Recebemos sua mensagem e ela foi encaminhada ao setor responsável. "
+            "Retornaremos em breve."
+        )
+    
     return response
